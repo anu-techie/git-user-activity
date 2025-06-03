@@ -54,11 +54,13 @@ Follow these steps to get your GitHub User Activity CLI app and running:
    If Python is not installed, download it from python.org.
 
 4. **Install required packagee**
+   
     If you don’t have requests installed, run:
-        ```bash
-        pip install requests
-        ```
-        or download it from [https://pypi.org/project/requests/] (https://pypi.org/project/requests/)
+   
+   ```bash
+   pip install requests
+    ```
+   or download it from [https://pypi.org/project/requests/] (https://pypi.org/project/requests/)
 
 4. **Run the Task Tracker CLI**
     ```bash
@@ -77,7 +79,5 @@ This project was inspired by and developed following the excellent guidance from
 For detailed project guidelines and ideas, visit:
 [https://roadmap.sh/projects/github-user-activity](https://roadmap.sh/projects/github-user-activity)
 
-
-🙋‍♀️ Author
-Anusuyadevi
-Learning Python and APIs by building cool projects ❤️
+---
+🙋‍♀️ Author : Anusuyadevi | Learning Python and APIs by building cool projects ❤️
