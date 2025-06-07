@@ -62,7 +62,7 @@ Follow these steps to get your GitHub User Activity CLI app and running:
     ```
    or download it from [https://pypi.org/project/requests/] (https://pypi.org/project/requests/)
 
-4. **Run the Task Tracker CLI**
+5. **Run the Task Tracker CLI**
     ```bash
     python github_activity.py <username>
     ```
