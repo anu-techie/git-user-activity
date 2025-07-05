@@ -80,4 +80,4 @@ For detailed project guidelines and ideas, visit:
 [https://roadmap.sh/projects/github-user-activity](https://roadmap.sh/projects/github-user-activity)
 
 ---
-🙋‍♀️ Author : Anusuyadevi | Learning Python and APIs by building cool projects ❤️
+🙋‍♀️ Author : Anusuyadevi | Learning Backend, building cool projects ❤️

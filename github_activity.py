@@ -1,49 +1,41 @@
-import sys
-import requests
+import sys, requests
 
-def fetch_user(username):
-    url = f'https://api.github.com/users/{username}/events'
-    response = requests.get(url)
-
-    if response.status_code !=200:
-        print(f'Error fetching data for user {username}.Status code : {response.status_code}')
-        return None
-    
-    return response.json()
-
-def display_events(user_info):
-    if not user_info:
-        print('No recent activity found')
-        return
-    
-    for event in user_info:
-        event_type = event.get('type', 'UnknownEvent')
-        repo = event.get('repo',{}).get('name', 'UnknownRepository')
-        
-        if event_type == 'PushEvent':
-            pushed_events = event.get('payload',{}).get('commits',[])
-            commits = len(pushed_events)
-            print(f'Pushed {commits} commits to {repo}')
-        elif event_type == "IssuesEvent":
-            action = event.get("payload", {}).get("action", "did something")
-            print(f"- {action.capitalize()} an issue in {repo}")
-        
-        elif event_type == "WatchEvent":
-            print(f"- Starred {repo}")
-        
+def user(username):
+    try:
+        response = requests.get(f"https://api.github.com/users/{username}/events")
+        if response.status_code == 200:
+            user_activity = response.json()
+            if not user_activity:
+                print("There are no activity in the repository")
+            else:
+                has_activity = False
+                for activity in user_activity:
+                    if activity['type'] == "PushEvent":
+                        com = activity['payload']['commits']
+                        repository_name = activity["repo"]["name"]
+                        print(f"Pushed {len(com)} commits to {repository_name}")
+                        has_activity = True
+                    elif activity["type"] == "CreateEvent":
+                        repository_name = activity["repo"]["name"]
+                        print(f"Created new repository - {repository_name}")
+                        has_activity = True
+                if not has_activity:
+                    print("There are no push and create activity in the repository")
+                
+        elif response.status_code == 404:
+            print("Invalid User Name")
+        elif response.status_code in [403,429]:
+            print("Rate Limit Exceeded")
         else:
-            print(f"- {event_type} at {repo}")
-
+            print("Unexpected Response : Please try again later")
+    except requests.exceptions.RequestException as e:
+        print(f"Connection Error {e}")
+        
 def main():
-    if len(sys.argv)!=2:
-        print('usage : command github_activity.py <username>')
-        return
-    
-    username = sys.argv[1]
-    user_info = fetch_user(username)
-    if user_info is not None:
-        display_events(user_info)
+    input = sys.argv
+    if len(input) == 2:
+        user(input[1])
+    else:
+        print("Please give username followed by filename \n\n 'example : github_user.py anu-techie'\n")
 
-if __name__=="__main__":
-    main()
-
+main()
